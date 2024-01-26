@@ -1,0 +1,114 @@
+<html><pre>
+This is the readme for the model files associated with the paper:
+
+Larkum ME, Nevian T, Sandler M, Polsky A, Schiller J (2009) Synaptic
+integration in tuft dendrites of layer 5 pyramidal neurons: a new 
+unifying principle. Science 325:756-60
+
+These NEURON model files were supplied by Alon Polsky.
+
+Usage: to run the model either auto-launch from ModelDB or
+download and extract this archive and then compile the mod
+files under
+
+mswin: run mknrndll and select this folder to create the nrnmech.dll
+linux: run nrnivmodl in this folder
+mac os x: drag and drop this folder onto mknrndll
+
+then to start the simulation under
+
+mswin: double click the mosinit.hoc file using windows explorer
+linux: type "nrngui mosinit.hoc" in the shell prompt in this folder
+mac os x: drag and drop the mosinit.hoc file onto the nrngui icon
+
+Once the simulation is running:
+
+To run the current injection simulations run the model adjust the
+proximal or the distal IClamp processes – 0.5nA works OK for the
+distal and 0.9nA for the proximal processes.  To examine the effects
+of NMDA spike initiation increase the gmax variable of the
+‘glutamate‘ point process. Other variables used in
+‘glutamate’ are:
+
+       e-the reversal potential (should be 0)
+       ntar – NMDA to AMPA ratio (in this point process gmax is the
+            NMDA conductance, and the AMPA conductance is calculated
+            based on the ntar value. So, for example, at gmax of 1nS
+            and ntar of 10, the NMDA conductance would be 1nS and AMPA
+            0.1nS)
+       del-onset time of the first synaptic input 
+       Tspike – ISI presynaptic activations (for presynaptic input
+            train) in ms.
+       Nspike-number of presynaptic activations (for presynaptic input
+            train). For example, presynaptic train of 5 inputs at
+            100Hz can be activated with Tspike=5 Nspike=10.
+
+Summation of different distribution of synapses can be examined with
+the ‘Control’ panel.
+
+numS variable is the number of synapses
+GmaxS is the conductance of a single synapse (similar to gmax of
+‘glutamate’ process
+Synapses can be distributed based on distance from the main
+bifurcation (between SubTuftProxS and SubTuftDistS values; only when
+generation is 0) or dendrite generation.
+Synapses can have either AMPA and NMDA components when the (NMDA=1;
+AMPA=2) value is 1 or AMPA only when the (NMDA=1; AMPA=2) value is 2.
+
+Please note that in some cases the temperature and the GlobalRa
+variables are not automatically set to the right values. Best
+simulation time value is 200ms.
+
+---
+When the simulation starts it displays a default location of synapses:
+
+<img src="./screenshot2.jpg" alt="pict of synapse locations">
+
+and pressing "Init & Run" will produce the simulations default display:
+
+<img src="./screenshot1.jpg" alt="default parameter simulation">
+
+Detailed instructions on generating panels from supplementary Fig. S2:
+
+Here are the instructions for how to create simulations similar as to
+presented at fig. S2:
+
+For a simulation of NMDA spike (panel C) set the 'global Ra' to any
+value between 80 to 90ohm-cm and press 'run'. The glutamatergic
+synapse is located at the appropriate location and should generate 3
+impulses with NMDA spike following the second impulse.
+Setting global Ra to 85 ohm-cm produced this graph:
+
+<img src="./screenshot3.jpg" alt="panel C example">
+
+For a simulation of synaptic summation (panels G and H) fist set the
+gmax value of the glutamatergic synapse (point process glutamate[200])
+to zero. Then redistribute 100 synapses over the 3rd order branches by
+setting the 'generation' value in the 'Control' panel to 3. Set the
+numS to 100 (number of synapses) and GmaxS to 1 (conductance of each
+synapse in nS). Hit 'run' to generate a plot similar to panel G:
+
+<img src="./screenshot4.jpg" alt="panel G example">
+
+In order to examine what is the effect of AMPA only synapses, change
+the value of 'NMDA=1 AMPA=2' field in 'control' panel to 2. Hit 'run'
+to generate the left part of plot H:
+
+<img src="./screenshot5.jpg" alt="left part of plot H">
+
+In order to increase the number of synapses set the 'numS' value to a
+higher number (500 will produce a similar result as to presented at
+plot H, right part):
+
+<img src="./screenshot6.jpg" alt="right part of plot H">
+
+As the synapses are distributed randomly, each run's result is unique,
+and may be somewhat different from the simulation presented in the
+paper.
+
+20120326 the solve method was updated from euler to derivimplicit in
+cad2.mod.  See
+<a href="http://www.neuron.yale.edu/phpBB/viewtopic.php?f=28&t=592">
+http://www.neuron.yale.edu/phpBB/viewtopic.php?f=28&t=592</a>
+
+</pre></html>
